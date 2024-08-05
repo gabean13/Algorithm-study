@@ -12,12 +12,11 @@ class Main {
 
         int multiple = A*B*C;
 
-        while(multiple / 10 > 0){
+        while(multiple > 0){
             numCnt[multiple%10]++;
             multiple /= 10;
         }
-        numCnt[multiple%10]++;
-        
+
         for(int cnt : numCnt){
             sb.append(cnt).append("\n");
         }
