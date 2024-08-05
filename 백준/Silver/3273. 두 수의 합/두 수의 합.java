@@ -18,8 +18,9 @@ class Main {
         int x = Integer.parseInt(br.readLine());
 
         //구현
-        for(int i = 1; i < ((x > 1000001) ? 1000001 : x); i++){
-            if(arr[i] == 1 && (x-i) <= 1000000 && arr[x - i] == 1){
+        for(int i = 1; i < (x > 1000001 ? 1000001 : x); i++){
+            int xTargetIdx = x - i;
+            if(arr[i] == 1 && xTargetIdx <= 1000000 && arr[xTargetIdx] == 1){
                 answer++;
             }
         }
