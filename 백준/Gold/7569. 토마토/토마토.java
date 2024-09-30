@@ -11,6 +11,7 @@ public class Main {
 		int H = Integer.parseInt(st.nextToken());
 		
 		Queue<Node> queue = new LinkedList<>();
+		int ripedTomato = M*N*H;
 		int[][][] dist = new int[H][N][M];
 		int[][][] matrix = new int[H][N][M];
 		for(int z = 0; z < H; z++) {
@@ -21,6 +22,9 @@ public class Main {
 					if(matrix[z][y][x] == 1) {
 						queue.add(new Node(x, y, z));
 						dist[z][y][x] = 1;
+						ripedTomato--;
+					} else if(matrix[z][y][x] == -1) {
+						ripedTomato--;
 					}
 				}
 			}
@@ -49,23 +53,12 @@ public class Main {
 					queue.add(new Node(nx, ny, nz));
 					matrix[nz][ny][nx] = 1;
 					dist[nz][ny][nx] = dist[cz][cy][cx] + 1;
+					ripedTomato--;
 				}
 			}
 		}
 		
-		boolean success = true;
-		for(int z = 0; z < H; z++) {
-			for(int y = 0; y < N; y++) {
-				for(int x = 0; x < M; x++) {
-					if(matrix[z][y][x] == 0) {
-						success = false;
-						break;
-					}
-				}
-			}
-		}
-		
-		if(success) {
+		if(ripedTomato == 0) {
 			System.out.println(answer-1);
 		} else {
 			System.out.println(-1);
