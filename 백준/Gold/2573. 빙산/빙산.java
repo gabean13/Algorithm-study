@@ -17,34 +17,37 @@ public class Main {
 			}
 		}
 		
-		//한번 돌면서 모든 애들의 동서남북 체크, 0인 수만큼 각 애들에서 빼준다(하나하나처리 하면 안됨)
-		//종료 조건 빙산 2개 이상
-		
-		//0이 아니거나, 방문한 부분은 빼지 않음
 		int[] dx = {1, 0, -1, 0};
 		int[] dy = {0, 1, 0, -1};
 		Queue<Node> queue = new LinkedList<>();
 		int year = 0;
+		
 		while(true) {
-			int iceCnt = 0;
 			boolean[][] visited = new boolean[height][width];
+			int icebergCnt = 0;
+			boolean hasIce = false;
+			
 			for(int y = 0; y < height; y++) {
 				for(int x = 0; x < width; x++) {
-					if(matrix[y][x] == 0) continue;
-					if(!visited[y][x]) {
+					if(matrix[y][x] > 0 && !visited[y][x]) {
+						hasIce = true;
 						queue.add(new Node(y,x));
 						visited[y][x] = true;
-						iceCnt++;
-						if(iceCnt >= 2) {
+						icebergCnt++;
+						//종료조건 1 
+						if(icebergCnt >= 2) {
 							System.out.println(year);
 							return;
 						}
 					}
 					
+					//빙산 개수 세기 및 녹이기
 					while(!queue.isEmpty()) {
 						Node node = queue.poll();
 						int cx = node.x;
 						int cy = node.y;
+						int meltCnt = 0;
+						
 						for(int i = 0; i < 4; i++) {
 							int nx = cx + dx[i];
 							int ny = cy + dy[i];
@@ -52,17 +55,20 @@ public class Main {
 								queue.add(new Node(ny, nx));
 								visited[ny][nx] = true;
 							} else if (matrix[ny][nx] == 0 && !visited[ny][nx]) {
-								if(matrix[cy][cx] > 0) matrix[cy][cx]--;
+								meltCnt++;
 							}
 						}
+						matrix[cy][cx] = Math.max(0, matrix[cy][cx] - meltCnt);
 					}
 				}
 			}
-			year++;
-			if(iceCnt == 0) {
+			//종료 조건 2
+			if(!hasIce) {
 				System.out.println("0");
-				break;
+				return;
 			}
+			
+			year++;
 		}
 	}
 	
