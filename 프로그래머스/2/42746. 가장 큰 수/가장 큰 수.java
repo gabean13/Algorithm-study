@@ -18,10 +18,11 @@ class Solution {
         for(String str : list) {
             sb.append(str);
         }
-        if(sb.toString().replace("0", "").length() == 0) {
+        
+        String answer = sb.toString();
+        if(answer.charAt(0) == '0') {
             return "0";
         }
-    
         return sb.toString();
     }
 }
