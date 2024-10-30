@@ -4,7 +4,7 @@
 
 ### 성능 요약
 
-메모리: 93532 KB, 시간: 672 ms
+메모리: 100940 KB, 시간: 668 ms
 
 ### 분류
 
@@ -12,7 +12,7 @@
 
 ### 제출 일자
 
-2024년 10월 30일 13:16:28
+2024년 10월 30일 13:27:33
 
 ### 문제 설명
 
@@ -50,7 +50,7 @@
 
 <p>이다솜 : 네. 야호!!</p>
 
-<p>'<img alt="" src="" style="height:181px; width:274px"></p>
+<p>'<img alt="" src="https://www.acmicpc.net/upload/201004/p3.PNG" style="height:181px; width:274px"></p>
 
 <p>오영식 : 어? 오박사님 얘는 누구인가요?</p>
 
@@ -80,7 +80,7 @@
 
 <p>이다솜 : 그럼! 일단 사천왕을 이기고 오겠어!</p>
 
-<p><img alt="" src="" style="height:181px; width:274px"></p>
+<p><img alt="" src="https://www.acmicpc.net/upload/201004/p8.PNG" style="height:181px; width:274px"></p>
 
 <p>이다솜 : 여기가 사천왕과 대결하려면 가야하는 곳인가..</p>
 

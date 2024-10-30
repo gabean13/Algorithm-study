@@ -9,12 +9,12 @@ public class Main {
 		int poketmonNum = Integer.parseInt(st.nextToken());
 		int problemNum = Integer.parseInt(st.nextToken());
 		
-		String[] searchByNum = new String[poketmonNum + 1];
+		Map<Integer, String> searchByNum = new HashMap<>();
 		Map<String, Integer> searchByName = new HashMap<>();
 		for(int i = 1; i <= poketmonNum; i++) {
 			String name = br.readLine();
 			searchByName.put(name, i);
-			searchByNum[i] = name;
+			searchByNum.put(i, name);
 		}
 		
 		StringBuilder sb = new StringBuilder();
@@ -22,7 +22,7 @@ public class Main {
 			String input = br.readLine();
 			try {
 				int num = Integer.parseInt(input);
-				sb.append(searchByNum[num]).append("\n");
+				sb.append(searchByNum.get(num)).append("\n");
 			} catch(NumberFormatException ex) {
 				sb.append(searchByName.get(input)).append("\n");
 			}
