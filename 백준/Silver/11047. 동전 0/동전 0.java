@@ -21,8 +21,9 @@ public class Main {
 				idx--;
 				continue;
 			}
-			goal -= coins[idx];
-			coinCnt++;
+			int cnt = goal / coins[idx];
+			goal -= coins[idx] * cnt;
+			coinCnt += cnt;
 		}
 		
 		System.out.println(coinCnt);
