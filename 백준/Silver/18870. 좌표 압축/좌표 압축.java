@@ -7,25 +7,27 @@ public class Main {
 		
 		int n = Integer.parseInt(br.readLine());
 		
-		Map<Integer, Integer> indexMap = new TreeMap<>();
-		Set<Integer> set = new TreeSet<>();
+		int[] origin = new int[n];
+		int[] sorted = new int[n];
 		Map<Integer, Integer> rankMap = new HashMap<>();
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		for(int i = 0; i < n; i++) {
 			int value = Integer.parseInt(st.nextToken());
-			indexMap.put(i, value);
-			rankMap.put(value, 0);
-			set.add(value);
+			origin[i] = value;
+			sorted[i] = value;
 		}
 		
+		Arrays.sort(sorted);
+		
 		int rank = 0;
-		for(int value : set) {
+		for(int value : sorted) {
+			if(rankMap.containsKey(value)) continue;
 			rankMap.put(value, rank++);
 		}
 		
 		StringBuilder sb = new StringBuilder();
-		for(int key : indexMap.keySet()) {
-			sb.append(rankMap.get(indexMap.get(key))).append(" ");
+		for(int key : origin) {
+			sb.append(rankMap.get(key)).append(" ");
 		}
 		
 		System.out.println(sb);
