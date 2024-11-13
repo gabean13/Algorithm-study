@@ -7,7 +7,6 @@ public class Main {
 		String str1 = br.readLine();
 		String str2 = br.readLine();
 		int[] str1Arr = new int[26];
-		int[] str2Arr = new int[26];
 		for(char ch : str1.toCharArray()) {
 			str1Arr[ch - 'a'] += 1;
 		}
