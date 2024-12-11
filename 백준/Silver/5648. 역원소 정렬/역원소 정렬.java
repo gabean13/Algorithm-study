@@ -10,19 +10,18 @@ class Main {
 		long[] arr = new long[n];
 		
 		int i = 0;
-		StringBuilder sb = new StringBuilder();
+		
 		while(i < n) {
 			if(!st.hasMoreTokens()) {
 				st = new StringTokenizer(br.readLine());
 				continue;
 			}
-			sb.append(st.nextToken()).reverse();
-			arr[i++] = Long.parseLong(sb.toString());
-			sb.setLength(0);
+			arr[i++] = Long.parseLong(new StringBuilder(st.nextToken()).reverse().toString());
 		}
 		
 		Arrays.sort(arr);
 		
+		StringBuilder sb = new StringBuilder();
 		for(long num : arr) {
 			sb.append(num).append("\n");
 		}
