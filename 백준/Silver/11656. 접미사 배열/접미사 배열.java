@@ -6,15 +6,15 @@ class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		String input = br.readLine();
 		
-		List<String> list = new ArrayList<>();
+		String[] array = new String[input.length()];
 		for(int i = 0; i < input.length(); i++) {
-			list.add(input.substring(i));
+			array[i] = input.substring(i);
 		}
 		
-		Collections.sort(list);
+		Arrays.sort(array);
 		
 		StringBuffer sb = new StringBuffer();
-		for(String str : list) {
+		for(String str : array) {
 			sb.append(str).append("\n");
 		}
 		
