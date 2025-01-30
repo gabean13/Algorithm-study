@@ -14,7 +14,6 @@ class Solution
         }
         
         while(true) {
-            if(a % 2 != 0 && (a+1) == b) break;
             if(a % 2 != 0) {
                 a = (a + 1) / 2;
             } else {
@@ -27,6 +26,7 @@ class Solution
                 b /= 2;
             }
             
+            if(a == b) break;
             round++;
         }
         
