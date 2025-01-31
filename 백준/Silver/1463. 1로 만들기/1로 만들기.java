@@ -1,34 +1,23 @@
+import java.io.*;
 import java.util.*;
 
-public class Main
-{
-    static int min = Integer.MAX_VALUE;
-    
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        
-        toOne(n, 0);
-        
-        System.out.println(min);
-    }
-    
-    static void toOne(int n, int count){
-        //현재 coun 최소값보다 크면 굳이 검사할 필요 X
-        if(count > min){
-            return;
-        }
-                
-        if(n==1){
-            min = Math.min(min, count);
-        }
-        
-        if(n % 3 == 0){
-            toOne(n/3, count+1);
-        }
-        if(n% 2== 0){
-            toOne(n/2, count+1);
-        }
-        toOne(n-1, count+1);
-    }
+class Main {
+	public static void main(String[] args) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int x = Integer.parseInt(br.readLine());
+		
+		int[] arr = new int[x+1];
+		arr[1] = 0;
+		for(int i = 2; i <= x; i++) {
+			arr[i] = arr[i-1] + 1;
+			if(i % 2 == 0) {
+				arr[i] = Math.min(arr[i], arr[i/2] + 1);
+			}
+			if(i % 3 == 0) {
+				arr[i] = Math.min(arr[i], arr[i/3] + 1);
+			} 
+		}
+		
+		System.out.println(arr[x]);
+	}
 }
