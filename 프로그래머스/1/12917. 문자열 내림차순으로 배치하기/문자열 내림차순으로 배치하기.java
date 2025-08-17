@@ -2,18 +2,15 @@ import java.util.*;
 
 class Solution {
     public String solution(String s) {
-        List<Character> cl = new ArrayList<>();
-        for(int i = 0; i < s.length(); i++) {
-            cl.add(s.charAt(i));
-        }
+        char[] charArray = s.toCharArray();
         
-        cl.sort(Collections.reverseOrder());
+        Arrays.sort(charArray);
         
         StringBuilder sb = new StringBuilder();
-        for(Character c : cl) {
-            sb.append(c);
+        for(char ch : charArray) {
+            sb.append(ch);
         }
-
-        return sb.toString();
+        
+        return sb.reverse().toString();
     }
 }
