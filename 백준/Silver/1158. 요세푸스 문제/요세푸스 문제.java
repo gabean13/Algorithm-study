@@ -15,18 +15,11 @@ public class Main {
 	    }
 	    
 	    StringBuilder sb = new StringBuilder();
-	    int idx = -1;
+	    int idx = 0;
 	    while(n > 0) {
-	      idx += k;
-	      if(idx >= n) {
-	        idx %= n;
-	      }
+	      idx = (idx + k - 1) % n;
 	      sb.append(list.remove(idx)).append(", ");
 	      n--;
-	      idx--;
-	      if(idx == -1) {
-	        idx = n-1;
-	      }
 	    }
 	    
 	    int length = sb.toString().length();
