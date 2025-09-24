@@ -1,41 +1,35 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-class Main {
-	static public void main(String []args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
-        sb.append("<");
-
-        int N = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
-
-        List<Integer> list = new ArrayList<>();
-        
-        for(int i = 1; i <= N; i++){
-            list.add(i);
-        }
-
-        ListIterator <Integer> iter = list.listIterator();
-        while(list.size() > 0){
-            int target = 0;
-            for(int i = 0; i < K; i++){
-                if(iter.hasNext()){
-                    target = iter.next();
-                }else{
-                    iter = list.listIterator();
-                    target = iter.next();
-                }
-            }
-            sb.append(target).append(", ");
-            iter.remove();
-        }
-        
-        sb.setLength(sb.length()-2);
-        sb.append(">");
-        System.out.println(sb);
-    }
+public class Main {
+	public static void main(String[] args) throws IOException {
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+	    
+	    int n = Integer.parseInt(st.nextToken());
+	    int k = Integer.parseInt(st.nextToken());
+	    
+	    List<Integer> list = new ArrayList<>();
+	    for(int i = 0; i < n; i++) {
+	      list.add(i + 1);
+	    }
+	    
+	    StringBuilder sb = new StringBuilder();
+	    int idx = -1;
+	    while(n > 0) {
+	      idx += k;
+	      if(idx >= n) {
+	        idx %= n;
+	      }
+	      sb.append(list.remove(idx)).append(", ");
+	      n--;
+	      idx--;
+	      if(idx == -1) {
+	        idx = n-1;
+	      }
+	    }
+	    
+	    int length = sb.toString().length();
+	    System.out.println("<" + sb.toString().substring(0, length-2) + ">");
+	}
 }
-
-
