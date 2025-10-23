@@ -1,30 +1,47 @@
 import java.util.*;
 
 class Solution {
-    public int solution(String[] want, int[] number, String[] discount) {
-        // banna 3개 apple 2개 rice 2개 pork 2개 pot 1개 
-        // discount i ~ i + 10 까지의 수량이 banna 3개 ~ pot 1개 인 경우의 수를 구하라
-        // 완탐ㄱㄱㅋㅋ        
+    public int solution(String[] want, int[] number, String[] discount) {    
         int answer = 0;
-        Map<String, Integer> wantCounts = new HashMap<>();
+        
+        Map<String, Integer> window = new HashMap<>();
         for(int i = 0; i < want.length; i++) {
-            wantCounts.put(want[i], number[i]);
+            window.put(want[i], number[i]);
         }
         
-        for(int startIdx = 0; startIdx <= discount.length-10; startIdx++) {
-            Map<String, Integer> wantCountCopy = new HashMap<>(wantCounts);
-            for(int i = startIdx; i < startIdx + 10; i++) {
-                if(wantCountCopy.containsKey(discount[i])) {
-                    wantCountCopy.put(discount[i], wantCountCopy.get(discount[i]) - 1);
-                    if(wantCountCopy.get(discount[i]) == 0) {
-                        wantCountCopy.remove(discount[i]);
-                    }
-                }                
-            }
-            if(wantCountCopy.size() == 0) {
-                answer++;
+        // 초기 윈도우 세팅
+        for(int i = 0; i < 10; i++) {
+            if(window.containsKey(discount[i])) {
+                window.put(discount[i], window.get(discount[i]) - 1);   
             }
         }
+        
+        // 슬라이딩 윈도우
+        for(int left = 0, right = 10; right < discount.length; left++, right++) {
+            if(isAllWantDays(window)) {
+                answer++;
+            }
+            
+            if(window.containsKey(discount[left])) {
+                window.put(discount[left], window.get(discount[left]) + 1);
+            }
+            
+            
+            if(window.containsKey(discount[right])) {
+                window.put(discount[right], window.get(discount[right]) - 1);
+            }
+        }
+        
+        if (isAllWantDays(window)) answer++; // 마지막 윈도우 확인        
         return answer;
+    }
+    
+    public boolean isAllWantDays(Map<String, Integer> map) {
+        for(Integer value : map.values()) {
+            if(value != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }
