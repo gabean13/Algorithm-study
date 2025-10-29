@@ -1,41 +1,41 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-	public static void main(String[] args) throws Exception{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
-		
-		int testCases = Integer.parseInt(br.readLine());
-		for(int i = 0; i < testCases; i++) {
-			StringTokenizer st = new StringTokenizer(br.readLine());
-			boolean answer = isStrfryPossible(st.nextToken(), st.nextToken());
-			sb.append(answer ? "Possible\n" : "Impossible\n");
-		}
-		
-		System.out.println(sb);
+  
+  static final String IMPOSSIBLE = "Impossible\n";
+	static final String POSSILBLE = "Possible\n";
+	  
+	public static void main(String[] args) throws IOException {
+	  BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	  int testCaseCount = Integer.parseInt(br.readLine());
+	  
+	  StringBuilder sb = new StringBuilder();
+	  for(int i = 0; i < testCaseCount; i++) {
+	    StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+	    String actual = st.nextToken();
+	    String want = st.nextToken();
+	    sb.append(canStrfry(actual, want));
+	  }
+	  
+	  System.out.println(sb.toString());
 	}
 	
-	static boolean isStrfryPossible(String s1, String s2) {
-		if(s1.length() != s2.length()) {
-			return false;
-		}
-		
-		int[] s1Arr = new int[27];
-		for(int i = 0; i < s1.length(); i++) {
-			s1Arr[s1.charAt(i) - 'a']++;
-		}
-		
-		for(int i = 0; i < s2.length(); i++) {
-			s1Arr[s2.charAt(i) - 'a']--;
-		}
-		
-		for(int i = 0; i < 27; i++) {
-			if(s1Arr[i] != 0) {
-				return false;
-			}
-		}
-		
-		return true;
-	}
+  static String canStrfry(String actual, String want) {
+    if(actual.length() != want.length()) return IMPOSSIBLE;
+    
+    int[] actualArr = new int[26]; 
+    for(char actualCh : actual.toCharArray()) {
+      actualArr[actualCh-'a']++;
+    }
+    
+    for(char wantCh : want.toCharArray()) {
+      actualArr[wantCh-'a']--;
+    }
+    
+    for(int count : actualArr) {
+      if(count != 0) return IMPOSSIBLE;
+    }
+    return POSSILBLE;
+  }
 }
