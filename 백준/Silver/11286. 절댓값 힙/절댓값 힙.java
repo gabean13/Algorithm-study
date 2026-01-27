@@ -1,0 +1,33 @@
+import java.util.*;
+import java.io.*;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    int n = Integer.parseInt(br.readLine());
+	    
+	    StringBuilder sb = new StringBuilder();
+	    PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> {
+	      int aAbs = Math.abs(a);
+	      int bAbs = Math.abs(b);
+	      if(aAbs == bAbs) {
+	        return a - b;
+	      }
+	      return aAbs - bAbs;
+	    });
+	    for(int i = 0; i < n; i++) {
+	      int input = Integer.parseInt(br.readLine());
+	      if(input == 0) {
+	        if(pq.isEmpty())  {
+	          sb.append("0\n");
+	          continue;
+	        }
+	        sb.append(pq.poll()).append("\n");
+	      } else {
+	        pq.offer(input);
+	      }
+	    }
+	    
+	    System.out.println(sb.toString());
+	}
+}
