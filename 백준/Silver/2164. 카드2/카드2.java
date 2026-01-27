@@ -1,22 +1,21 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-class Main {
-	static public void main(String []args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
-        int answer = 0;
-        
-        Queue<Integer> queue = new LinkedList<>();
-        for(int i = 1; i <= N; i++){
-            queue.offer(i);
-        }
-
-        while(queue.size() != 1){
-            queue.poll();
-            queue.offer(queue.poll());
-        }
-
-        System.out.println(queue.poll());
-    }
+public class Main {
+	public static void main(String[] args) throws IOException {
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	    int n = Integer.parseInt(br.readLine());
+	    
+	    LinkedList<Integer> list = new LinkedList<>();
+	    for(int i = 1; i <= n; i++) {
+	      list.addLast(i);
+	    }
+	    
+	    while(list.size() > 1) {
+	      list.removeFirst();
+	      list.addLast(list.removeFirst());
+	    }
+	    
+	    System.out.println(list.get(0));
+	}
 }
