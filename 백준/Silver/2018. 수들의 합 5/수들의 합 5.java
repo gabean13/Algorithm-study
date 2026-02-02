@@ -4,29 +4,26 @@ import java.io.*;
 public class Main {
 	public static void main(String[] args) throws IOException {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    // N 입력
-	    int N = Integer.parseInt(br.readLine());
 	    
-	    // answer = 1 선언
+	    int n = Integer.parseInt(br.readLine());
 	    int answer = 1;
-	    int l = 1;
-	    int r = 1;
-	    long sum = 1;
-	    while(r < N) {
-	      if(sum > N) {
-	        sum -= l;
-	        l++;
-	      }
-	      
-	      if(sum < N) {
-	        r++;
-	        sum += r;
-	      }
-	      
-	      if(sum == N) {
+	    
+	    int start = 1;
+	    int end = 2;
+	    long currentSum = start + end;
+	    while(end < n) {
+	      if(currentSum < n) {
+	        end++;
+	        currentSum += end;
+	      } else if(currentSum > n) {
+	        currentSum -= start;
+	        start++;
+	      } else {
 	        answer++;
-	        r++;
-	        sum = sum + r;
+	        end++;
+	        currentSum += end;
+	        currentSum -= start;
+	        start++;
 	      }
 	    }
 	    
