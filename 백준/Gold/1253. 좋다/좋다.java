@@ -2,44 +2,44 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-  
-  static int answer = 0;
-  
 	public static void main(String[] args) throws IOException {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    int N = Integer.parseInt(br.readLine());
-	    long[] arr = new long[N];
-	    StringTokenizer st = new StringTokenizer(br.readLine());
-	    for(int i = 0; i < N; i++) {
+	    int n = Integer.parseInt(br.readLine());
+	    
+	    long[] arr = new long[n];
+	    StringTokenizer st = new StringTokenizer(br.readLine(), " ");
+	    for(int i = 0;i < n; i++) {
 	      arr[i] = Long.parseLong(st.nextToken());
 	    }
+	    
 	    Arrays.sort(arr);
 	    
-	    for(int i = 0; i < N; i++) {
-	      checkGoodNumber(N, arr, i);
+	    int answer = 0;
+	    for(int i = 0; i < n; i++) {
+	      long current = arr[i];
+	      int start = 0;
+	      int end = n-1;
+	      while(start < end) {
+	        if(start == i) {
+	          start++;
+	          continue;
+	        }
+	        if(end == i) {
+	          end--;
+	          continue;
+	        }
+	        long sum = arr[start] + arr[end];
+	        if(sum == current) {
+	          answer++;
+	          break;
+	        } else if(sum < current) {
+	          start++;
+	        } else if(sum > current) {
+	          end--;
+	        }
+	      }
 	    }
 	    
 	    System.out.println(answer);
-	}
-	
-	private static void checkGoodNumber(int N, long[] arr, int targetIdx) {
-	  int l = 0;
-	  int r = N-1;
-	  
-	  while(l < r) {
-	    long current = arr[l] + arr[r];
-	    if (targetIdx == r) {
-	      r--;
-	    } else if(targetIdx == l) {
-	      l++;
-	    } else if(current == arr[targetIdx]) {
-	      answer++;
-	      return;
-	    } else if(current > arr[targetIdx]) {
-	      r--;
-	    } else if(current < arr[targetIdx]) {
-	      l++;
-	    } 
-	  }
 	}
 }
