@@ -2,78 +2,65 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-  
-  static int aIdx = 0;
-	static int cIdx = 1;
-	static int gIdx = 2;
-	static int tIdx = 3;
-	static int[] current = new int[4];
-	static int[] wanted = new int[4];
-	
 	public static void main(String[] args) throws IOException {
 	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	    StringTokenizer st = new StringTokenizer(br.readLine());
-	    
-	    int N = Integer.parseInt(st.nextToken());
+	    int strLength = Integer.parseInt(st.nextToken());
 	    int pwLength = Integer.parseInt(st.nextToken());
+	    
 	    String[] strArr = br.readLine().split("");
 	    
-	    
 	    st = new StringTokenizer(br.readLine());
-	    for(int i = 0; i < 4; i++) {
-	      wanted[i] = Integer.parseInt(st.nextToken());
-	    }
-	    
-	    // 초기 값 할당
-	    int answer = 0;
+	    int[] validateCountArr = new int[4];
+	    validateCountArr[0] = Integer.parseInt(st.nextToken());
+	    validateCountArr[1] = Integer.parseInt(st.nextToken());
+	    validateCountArr[2] = Integer.parseInt(st.nextToken());
+	    validateCountArr[3] = Integer.parseInt(st.nextToken());
+
+	    int[] countArr = new int[4];
 	    for(int i = 0; i < pwLength; i++) {
-	      add(strArr[i]);
-	    }
-	    if(checkPw()) {
-	      answer++;
-	    }
-	   
-	    for(int i = pwLength; i < N; i++) {
-         add(strArr[i]);
-         remove(strArr[i-pwLength]);
-         if(checkPw()) {
-           answer++;
-         }
+	      int index = getIndex(strArr[i]);
+	      countArr[index]++;
 	    }
 	    
-	    System.out.println(answer);
+	    int answer = 0;
+      int start = 0;
+      int end = pwLength-1;
+      while(end < strLength) {
+        if(isValidate(countArr, validateCountArr)) {
+          answer++;
+        }
+        int startIndex = getIndex(strArr[start]);
+        countArr[startIndex]--;
+        start++;
+        end++;
+        if(end == strLength) break;
+        int newIndex = getIndex(strArr[end]);
+        countArr[newIndex]++;
+      }
+      
+      System.out.println(answer);
 	}
 	
-	private static boolean checkPw() {
-	  for(int i = 0; i < 4; i++) {
-	    if(wanted[i] > current[i]) {
+	private static int getIndex(String str) {
+	  if(str.equals("A")) {
+	    return 0;
+	  } 
+	  if(str.equals("C")) {
+	    return 1;
+	  } 
+	  if(str.equals("G")) {
+	    return 2;
+	  } 
+	  return 3;
+	}
+	
+	private static boolean isValidate(int[] countArr, int[] validateCountArr) {
+	  for(int i = 0;i < 4; i++) {
+	    if(countArr[i] < validateCountArr[i]) {
 	      return false;
 	    }
 	  }
 	  return true;
-	}
-	
-	private static void add(String str) {
-	   if(str.equals("A")) {
-	        current[aIdx]++;
-	      } else if(str.equals("C")) {
-	        current[cIdx]++;
-	      } else if(str.equals("G")) {
-	        current[gIdx]++;
-	      } else if(str.equals("T")) {
-	        current[tIdx]++;
-	      }
-	}
-	
-	private static void remove(String str) {
-	   if(str.equals("A")) {
-	        current[aIdx]--;
-	      } else if(str.equals("C")) {
-	        current[cIdx]--;
-	      } else if(str.equals("G")) {
-	        current[gIdx]--;
-	      } else if(str.equals("T")) {
-	        current[tIdx]--;
-	      }
 	}
 }
