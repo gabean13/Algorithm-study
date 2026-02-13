@@ -1,26 +1,32 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
-class Main {
-	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		Map<Long, Integer> map = new TreeMap<>();
-		
-		int n = Integer.parseInt(br.readLine());
-		for(int i = 0; i < n; i++) {
-			Long key = Long.parseLong(br.readLine());
-			map.put(key, map.getOrDefault(key, 0) + 1);
-		}
-		
-		int max = 0;
-		Long answer = 0L;
-		for(Long key : map.keySet()) {
-			if(map.get(key) > max) {
-				max = map.get(key);
-				answer = key;
-			}
-		}
-		
-		System.out.println(answer);
+public class Main {
+	public static void main(String[] args) throws IOException {
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	   
+	    int n = Integer.parseInt(br.readLine());
+	    long[] arr = new long[n];
+	    for(int i = 0; i < n; i++) {
+	      long num = Long.parseLong(br.readLine());
+	      arr[i] = num;
+	    }
+	    
+	    Arrays.sort(arr);
+	    int maxCount = 1;
+	    long maxValue = arr[0];
+	    int currentCount = 1;
+	    for(int i = 1; i < n; i++) {
+	      if(arr[i] == arr[i-1]) {
+	        currentCount++;
+	      } else {
+	        currentCount = 1;
+	      }
+	      if(currentCount > maxCount) {
+	        maxCount = currentCount;
+	        maxValue = arr[i];
+	      }
+	    }
+	    System.out.println(maxValue);
 	}
 }
