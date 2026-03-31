@@ -1,35 +1,29 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-	static int[] stairs;
-	static int[][] dp;
-	public static void main(String[] args) throws IOException{
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		int stairsNum = Integer.parseInt(br.readLine());
-		
-		stairs = new int[stairsNum+1];
-		dp = new int[stairsNum+1][3]; //1칸 올라왓을 때, 2칸 연속 올라왔을 때
-		for(int i = 1; i <= stairsNum; i++) {
-			stairs[i] = Integer.parseInt(br.readLine());
-		}
-		
-		if(stairsNum >= 1) {
-			dp[1][1] = stairs[1];
-			dp[1][2] = stairs[1];
-		}
-		
-		if(stairsNum >= 2) {
-			dp[2][1] = stairs[2];
-			dp[2][2] = stairs[1] + stairs[2];
-		}
-	
-		for(int i = 3; i <= stairsNum; i++) {
-			dp[i][1] = Math.max(dp[i-2][1], dp[i-2][2]) + stairs[i];
-			dp[i][2] = dp[i-1][1] + stairs[i];
-		}
-		
-		int answer = Math.max(dp[stairsNum][1], dp[stairsNum][2]);
-		System.out.println(answer);	
+	public static void main(String[] args) throws IOException {
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      int stairNum = Integer.parseInt(br.readLine());
+      int[] stair = new int[stairNum + 1];
+      for(int i = 1; i <= stairNum; i++) {
+        stair[i] = Integer.parseInt(br.readLine());
+      }
+      
+      if(stairNum == 1) {
+        System.out.println(stair[1]);
+        return;
+      }
+      
+      int[][] d = new int[stairNum + 1][3];
+      d[1][1] = stair[1];
+      d[1][2] = stair[1];
+      d[2][1] = stair[2];
+      d[2][2] = stair[1] + stair[2];
+      for(int i = 3; i <= stairNum; i++) {
+        d[i][1] = Math.max(d[i-2][1], d[i-2][2]) + stair[i];
+        d[i][2] = d[i-1][1] + stair[i];
+      }
+      System.out.println(Math.max(d[stairNum][1], d[stairNum][2]));
 	}
 }
