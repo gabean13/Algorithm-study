@@ -1,31 +1,25 @@
 import java.util.*;
 import java.io.*;
 
-class Main {
-	static public void main(String []args) throws IOException {
-		BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(bf.readLine());
-
-        int T = Integer.parseInt(st.nextToken());   //테스트 케이스의 개수
-
-        int[] dp = new int[11];
-
-        dp[1] = 1;
-        dp[2] = 2;
-        dp[3] = 4;
-
-        for(int i = 0; i < T; i++){
-            st = new StringTokenizer(bf.readLine());
-            System.out.println(fibo(dp, Integer.parseInt(st.nextToken())));
-        }
-    }
-
-    static int fibo(int[] dp, int n){
-        if(dp[n] != 0){
-            return dp[n];
-        }else{
-            dp[n] = fibo(dp, n-3) + fibo(dp, n-2) + fibo(dp, n-1);
-            return dp[n];
-        }
-    }
+public class Main {
+	public static void main(String[] args) throws IOException {
+	    int[] d = new int[12];
+	    d[1] = 1;
+	    d[2] = 2;
+	    d[3] = 4;
+	    for(int i = 4; i <= 11; i++) {
+	      d[i] = d[i-1] + d[i-2] + d[i-3];
+	    }
+	    
+	    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+      int testCase = Integer.parseInt(br.readLine());
+      
+      StringBuilder sb = new StringBuilder();
+      for(int i = 0; i < testCase; i++) {
+        int num = Integer.parseInt(br.readLine());
+        sb.append(d[num]).append("\n");
+      }
+      
+      System.out.println(sb.toString());
+	}
 }
